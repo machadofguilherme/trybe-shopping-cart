@@ -1,6 +1,3 @@
-// Usei esse artigo como referência para aplicar um map no DOM:
-// https://dev.to/jess/how-do-i-use-foreach-on-dom-elements-3m9h
-
 const createProductImageElement = (imageSource) => {
   const img = document.createElement('img');
   img.className = 'item__image';
@@ -15,6 +12,27 @@ const createCustomElement = (element, className, innerText) => {
   return e;
 };
 
+const cartItemClickListener = (event) => {
+  // coloque seu código aqui
+};
+
+const createCartItemElement = ({ sku, name, salePrice }) => {
+  const li = document.createElement('li');
+  const aside = document.querySelector('.cart__items');
+  li.className = 'cart__item';
+  li.innerText = `SKU: ${sku} | NAME: ${name} | PRICE: $${salePrice}`;
+  li.addEventListener('click', cartItemClickListener);
+  aside.appendChild(li);
+  return li;
+};
+
+const getItem = async (id) => {
+  const item = await fetchItem(id);
+  const { id: sku, title: name, price: salePrice } = item;
+  const object = { sku, name, salePrice };
+  return createCartItemElement(object);
+};
+
 const createProductItemElement = ({ sku, name, image }) => {
   const productsContent = document.querySelector('.items');
 
@@ -24,7 +42,9 @@ const createProductItemElement = ({ sku, name, image }) => {
   section.appendChild(createCustomElement('span', 'item__sku', sku));
   section.appendChild(createCustomElement('span', 'item__title', name));
   section.appendChild(createProductImageElement(image));
-  section.appendChild(createCustomElement('button', 'item__add', 'Adicionar ao carrinho!'));
+  const btn = createCustomElement('button', 'item__add', 'Adicionar ao carrinho!');
+  btn.addEventListener('click', () => getItem(sku));
+  section.appendChild(btn);
   productsContent.appendChild(section);
 
   return section;
@@ -32,25 +52,16 @@ const createProductItemElement = ({ sku, name, image }) => {
 
 const getSkuFromProductItem = (item) => item.querySelector('span.item__sku').innerText;
 
-const cartItemClickListener = (event) => {
-  // coloque seu código aqui
-};
-
-const createCartItemElement = ({ sku, name, salePrice }) => {
-  const li = document.createElement('li');
-  li.className = 'cart__item';
-  li.innerText = `SKU: ${sku} | NAME: ${name} | PRICE: $${salePrice}`;
-  li.addEventListener('click', cartItemClickListener);
-  return li;
-};
-
-window.onload = async () => {
-  const products = await fetchProducts('computador');
+const getProducts = async () => {
+  const products = await fetchProducts();
   const productsList = products.results;
-  await Array.prototype
-    .map.call(productsList, (product) => {
+  productsList.forEach((product) => {
     const { id: sku, title: name, thumbnail: image } = product;
     const objeto = { sku, name, image };
     createProductItemElement(objeto);
   });
+};
+
+window.onload = async () => {
+  await getProducts();
 };
