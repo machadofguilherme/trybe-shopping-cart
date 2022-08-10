@@ -17,7 +17,6 @@ const createCustomElement = (element, className, innerText) => {
 
 const createProductItemElement = ({ sku, name, image }) => {
   const productsContent = document.querySelector('.items');
-  console.log(sku, name, image);
 
   const section = document.createElement('section');
   section.className = 'item';
@@ -26,8 +25,8 @@ const createProductItemElement = ({ sku, name, image }) => {
   section.appendChild(createCustomElement('span', 'item__title', name));
   section.appendChild(createProductImageElement(image));
   section.appendChild(createCustomElement('button', 'item__add', 'Adicionar ao carrinho!'));
-  console.log(section);
   productsContent.appendChild(section);
+
   return section;
 };
 
