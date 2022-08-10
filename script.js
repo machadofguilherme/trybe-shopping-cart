@@ -1,3 +1,6 @@
+// Usei esse artigo como referência para aplicar um map no DOM:
+// https://dev.to/jess/how-do-i-use-foreach-on-dom-elements-3m9h
+
 const createProductImageElement = (imageSource) => {
   const img = document.createElement('img');
   img.className = 'item__image';
@@ -13,6 +16,9 @@ const createCustomElement = (element, className, innerText) => {
 };
 
 const createProductItemElement = ({ sku, name, image }) => {
+  const productsContent = document.querySelector('.items');
+  console.log(sku, name, image);
+
   const section = document.createElement('section');
   section.className = 'item';
 
@@ -20,7 +26,8 @@ const createProductItemElement = ({ sku, name, image }) => {
   section.appendChild(createCustomElement('span', 'item__title', name));
   section.appendChild(createProductImageElement(image));
   section.appendChild(createCustomElement('button', 'item__add', 'Adicionar ao carrinho!'));
-
+  console.log(section);
+  productsContent.appendChild(section);
   return section;
 };
 
@@ -38,4 +45,13 @@ const createCartItemElement = ({ sku, name, salePrice }) => {
   return li;
 };
 
-window.onload = () => { };
+window.onload = async () => {
+  const products = await fetchProducts('computador');
+  const productsList = products.results;
+  await Array.prototype
+    .map.call(productsList, (product) => {
+    const { id: sku, title: name, thumbnail: image } = product;
+    const objeto = { sku, name, image };
+    createProductItemElement(objeto);
+  });
+};
