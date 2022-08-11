@@ -1,4 +1,15 @@
 const saveList = [];
+const empty = document.querySelector('.empty-cart');
+const barSide = document.querySelector('.cart__items');
+
+const clean = () => {
+  const sidebar = document.getElementsByClassName('cart__items');
+  empty.addEventListener('click', () => {
+    // console.log(sidebar[0].firstElementChild);
+    const x = sidebar[0];
+    x.innerHTML = '';
+  });
+};
 
 const createProductImageElement = (imageSource) => {
   const img = document.createElement('img');
@@ -16,17 +27,15 @@ const createCustomElement = (element, className, innerText) => {
 
 const cartItemClickListener = (event) => {
   // coloque seu código aqui
-  const aside = document.querySelector('.cart__items');
-  aside.removeChild(event.target);
+  barSide.removeChild(event.target);
 };
 
 const createCartItemElement = ({ sku, name, salePrice }) => {
   const li = document.createElement('li');
-  const aside = document.querySelector('.cart__items');
   li.className = 'cart__item';
   li.innerText = `SKU: ${sku} | NAME: ${name} | PRICE: $${salePrice}`;
   li.addEventListener('click', cartItemClickListener);
-  aside.appendChild(li);
+  barSide.appendChild(li);
   return li;
 };
 
@@ -71,11 +80,11 @@ const getProducts = async () => {
 const list = () => {
   const memory = getSavedCartItems();
   const data = JSON.parse(memory);
-  console.log(data);
   data.forEach((item) => createCartItemElement(item));
 };
 
 window.onload = async () => {
   await getProducts();
   list();
+  clean();
 };
