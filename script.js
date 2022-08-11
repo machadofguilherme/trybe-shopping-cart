@@ -64,6 +64,8 @@ const createProductItemElement = ({ sku, name, image }) => {
   return section;
 };
 
+const getSkuFromProductItem = (item) => item.querySelector('span.item__sku').innerText;
+
 const getProducts = async () => {
   const products = await fetchProducts();
   const productsList = products.results;
