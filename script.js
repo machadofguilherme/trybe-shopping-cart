@@ -8,6 +8,7 @@ const clean = () => {
     while (barSide.firstChild) {
       barSide.removeChild(barSide.firstChild);
     }
+    localStorage.clear();
   });
 };
 
