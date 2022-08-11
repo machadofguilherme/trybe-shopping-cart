@@ -6,6 +6,7 @@ const clean = () => {
   empty.addEventListener('click', () => {
     const items = document.querySelectorAll('.cart__item');
     items.forEach((item) => item.remove());
+    localStorage.clear();
   });
 };
 
