@@ -1,3 +1,5 @@
+const saveList = [];
+
 const createProductImageElement = (imageSource) => {
   const img = document.createElement('img');
   img.className = 'item__image';
@@ -32,6 +34,8 @@ const getItem = async (id) => {
   const item = await fetchItem(id);
   const { id: sku, title: name, price: salePrice } = item;
   const object = { sku, name, salePrice };
+  saveList.push(object);
+  saveCartItems(saveList);
   return createCartItemElement(object);
 };
 
@@ -52,7 +56,7 @@ const createProductItemElement = ({ sku, name, image }) => {
   return section;
 };
 
-const getSkuFromProductItem = (item) => item.querySelector('span.item__sku').innerText;
+// const getSkuFromProductItem = (item) => item.querySelector('span.item__sku').innerText;
 
 const getProducts = async () => {
   const products = await fetchProducts();
@@ -64,6 +68,14 @@ const getProducts = async () => {
   });
 };
 
+const list = () => {
+  const memory = getSavedCartItems();
+  const data = JSON.parse(memory);
+  console.log(data);
+  data.forEach((item) => createCartItemElement(item));
+};
+
 window.onload = async () => {
   await getProducts();
+  list();
 };
