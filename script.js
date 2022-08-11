@@ -2,11 +2,12 @@ const saveList = [];
 const empty = document.querySelector('.empty-cart');
 const barSide = document.querySelector('.cart__items');
 
+// Fonte: MDN -- https://developer.mozilla.org/en-US/docs/Web/API/Node/removeChild
 const clean = () => {
-  const sidebar = document.getElementsByClassName('cart__items');
   empty.addEventListener('click', () => {
-    const content = sidebar[0];
-    content.innerHTML = '<ol class="cart__items"></ol>';
+    while (barSide.firstChild) {
+      barSide.removeChild(barSide.firstChild);
+    }
   });
 };
 
@@ -63,8 +64,6 @@ const createProductItemElement = ({ sku, name, image }) => {
 
   return section;
 };
-
-const getSkuFromProductItem = (item) => item.querySelector('span.item__sku').innerText;
 
 const getProducts = async () => {
   const products = await fetchProducts();
