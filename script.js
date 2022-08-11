@@ -5,9 +5,8 @@ const barSide = document.querySelector('.cart__items');
 const clean = () => {
   const sidebar = document.getElementsByClassName('cart__items');
   empty.addEventListener('click', () => {
-    // console.log(sidebar[0].firstElementChild);
-    const x = sidebar[0];
-    x.innerHTML = '';
+    const content = sidebar[0];
+    content.innerHTML = '<ol class="cart__items"></ol>';
   });
 };
 
@@ -64,8 +63,6 @@ const createProductItemElement = ({ sku, name, image }) => {
 
   return section;
 };
-
-// const getSkuFromProductItem = (item) => item.querySelector('span.item__sku').innerText;
 
 const getProducts = async () => {
   const products = await fetchProducts();
