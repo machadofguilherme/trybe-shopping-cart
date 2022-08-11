@@ -2,13 +2,10 @@ const saveList = [];
 const empty = document.querySelector('.empty-cart');
 const barSide = document.querySelector('.cart__items');
 
-// Fonte: MDN -- https://developer.mozilla.org/en-US/docs/Web/API/Node/removeChild
 const clean = () => {
   empty.addEventListener('click', () => {
-    while (barSide.firstChild) {
-      barSide.removeChild(barSide.firstChild);
-    }
-    localStorage.clear();
+    const items = document.querySelectorAll('.cart__item');
+    items.forEach((item) => item.remove());
   });
 };
 
@@ -37,6 +34,7 @@ const createCartItemElement = ({ sku, name, salePrice }) => {
   li.innerText = `SKU: ${sku} | NAME: ${name} | PRICE: $${salePrice}`;
   li.addEventListener('click', cartItemClickListener);
   barSide.appendChild(li);
+  clean();
   return li;
 };
 
@@ -85,5 +83,4 @@ const list = () => {
 window.onload = async () => {
   await getProducts();
   list();
-  clean();
 };
