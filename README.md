@@ -1,13 +1,19 @@
-# :construction: README customizado em construção ! :construction:
-<!-- Olá, Tryber!
-Esse é apenas um arquivo inicial para o README do seu projeto no qual você pode customizar e reutilizar todas as vezes que for executar o trybe-publisher.
 
-Para deixá-lo com a sua cara, basta alterar o seguinte arquivo da sua máquina: ~/.student-repo-publisher/custom/_NEW_README.md
+# [Trybe] - Carrinho de Compras
 
-É essencial que você preencha esse documento por conta própria, ok?
-Não deixe de usar nossas dicas de escrita de README de projetos, e deixe sua criatividade brilhar!
-:warning: IMPORTANTE: você precisa deixar nítido:
-- quais arquivos/pastas foram desenvolvidos por você; 
-- quais arquivos/pastas foram desenvolvidos por outra pessoa estudante;
-- quais arquivos/pastas foram desenvolvidos pela Trybe.
--->
+Carrinho de Compras é um projeto ao qual tive que desenvolver o gerenciamento de um carrrinho em uma loja fictícia. Tarefas como adicionar ao carrinho, calcular o preço total de todos os itens contidos no carrinho e coisas semelhantes.
+
+Nesse projeto apliquei pela primeira vez os conhecimentos que obtive sobre API. Application Programming Interface. Requisitei informações de uma API do Mercado Livre e renderizei esses dados na tela do usuário como se fossem itens de uma loja virtual disponíveis para serem comprados por um suposto consumidor.
+## Execução
+
+1. Clone o projeto para o seu computador:
+
+```bash
+  git clone https://github.com/machadofguilherme/trybe-shopping-cart.git
+  cd trybe-shopping-cart
+```
+2. Instale as dependências:
+
+```bash
+  npm i
+```
